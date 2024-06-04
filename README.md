@@ -1,3 +1,6 @@
+![image](https://github.com/belowevolve/wordathlon-online/assets/130287859/e50686fd-433b-4867-9bdd-318970a2343b)
+![image](https://github.com/belowevolve/wordathlon-online/assets/130287859/93b92e67-537e-4796-867a-79b6956799ce)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
