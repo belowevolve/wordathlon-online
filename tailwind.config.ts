@@ -74,6 +74,7 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        annie: ["var(--font-annie)"],
       },
       boxShadow: {
         "3d": "inset 1px -1px 5px rgba(0, 0, 0, 0.25)",
