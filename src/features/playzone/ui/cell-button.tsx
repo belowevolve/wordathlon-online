@@ -1,9 +1,13 @@
-import { cn } from '@/shared/lib/utils';
-import { HTMLMotionProps, m } from 'framer-motion';
-import { memo, useEffect, useRef } from 'react';
-import { buttonVariants, hoverFocusVariant, tapVariant } from './animation-variants';
+import { cn } from "@/shared/lib/utils";
+import { HTMLMotionProps, m } from "framer-motion";
+import { memo, useEffect, useRef } from "react";
+import {
+  buttonVariants,
+  hoverFocusVariant,
+  tapVariant,
+} from "./animation-variants";
 
-interface CountCellProps extends HTMLMotionProps<'button'> {
+interface CountCellProps extends HTMLMotionProps<"button"> {
   // Don't know why don`t word with number | string
   // handleClick: (...args: (number | string)[]) => void;
   handleClick: (arg: any) => void;
@@ -30,7 +34,7 @@ const CellButton = ({
   }, [isFocused]);
   return (
     <m.button
-      className={cn('cell button relative bg-opacity-80 shadow-3d', className)}
+      className={cn("cell button relative bg-opacity-80 shadow-3d", className)}
       ref={buttonRef}
       disabled={count === 0}
       whileTap={tapVariant}
@@ -43,7 +47,9 @@ const CellButton = ({
       {count !== undefined ? (
         <>
           {count > 0 && letter.toUpperCase()}
-          <p className="absolute bottom-2 right-2 text-lg leading-none">{count > 0 && count}</p>
+          <p className="absolute bottom-2 right-2 text-lg leading-none">
+            {count > 0 && count}
+          </p>
         </>
       ) : (
         <>{letter.toUpperCase()}</>

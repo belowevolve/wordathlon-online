@@ -1,22 +1,22 @@
-import { WordDataFetched } from './types';
+import { WordDataFetched } from "./types";
 
 export const revealOrder = [
-  '0-0',
-  '0-4',
-  '4-4',
-  '4-0',
-  '0-1',
-  '1-4',
-  '4-3',
-  '3-0',
-  '0-2',
-  '2-4',
-  '4-2',
-  '2-0',
-  '0-3',
-  '3-4',
-  '4-1',
-  '1-0',
+  "0-0",
+  "0-4",
+  "4-4",
+  "4-0",
+  "0-1",
+  "1-4",
+  "4-3",
+  "3-0",
+  "0-2",
+  "2-4",
+  "4-2",
+  "2-0",
+  "0-3",
+  "3-4",
+  "4-1",
+  "1-0",
 ];
 
 export const getGridCoordinates = (wordIndex: number, letterIndex: number) => {
@@ -37,7 +37,7 @@ export const getGridCoordinates = (wordIndex: number, letterIndex: number) => {
 export const initializeGrid = (levelWords: string[]) => {
   const newGrid: Record<string, { letter: string; revealed: boolean }> = {};
   levelWords.forEach((word, wordIndex) => {
-    word.split('').forEach((letter, letterIndex) => {
+    word.split("").forEach((letter, letterIndex) => {
       const key = getGridCoordinates(wordIndex, letterIndex);
       newGrid[key] = { letter: letter.toUpperCase(), revealed: false };
     });
@@ -63,7 +63,11 @@ export function countLetters(words: string[]): { [letter: string]: number } {
   return letterCounts;
 }
 
-export function selectRandomWords(data: WordDataFetched[], count: number, levelWords: string[]) {
+export function selectRandomWords(
+  data: WordDataFetched[],
+  count: number,
+  levelWords: string[],
+) {
   const words = [];
   let attempts = 0;
   while (words.length < count && data.length > 0 && attempts < 1000) {

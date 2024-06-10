@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { useGameStore } from './game-store';
+import { create } from "zustand";
+import { useGameStore } from "./game-store";
 
 interface UiState {
   focusedButton: { row: number; col: number };
@@ -15,22 +15,22 @@ export const useKeyboardControlStore = create<UiState & UiActions>((set) => ({
     set((state) => {
       let { row, col } = state.focusedButton;
       switch (event.code) {
-        case 'ArrowUp':
+        case "ArrowUp":
           row = Math.max(row - 1, 1);
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           row = Math.min(row + 1, 4 - 1);
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           col = Math.max(col - 1, 1);
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           col = Math.min(col + 1, 4 - 1);
           break;
-        case 'KeyH':
+        case "KeyH":
           useGameStore.getState().revealLetter();
           break;
-        case 'Backspace':
+        case "Backspace":
           useGameStore.getState().deleteLastLetter();
           break;
       }

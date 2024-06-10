@@ -12,9 +12,9 @@ export interface WordData {
 }
 
 export const OGameStatus = {
-  NOT_STARTED: 'NOT_STARTED',
-  LOADING: 'LOADING',
-  ON_LVL: 'ON_LVL',
-  AFTER_LVL: 'AFTER_LVL',
+  NOT_STARTED: "NOT_STARTED",
+  LOADING: "LOADING",
+  ON_LVL: "ON_LVL",
+  AFTER_LVL: "AFTER_LVL",
 } as const;
 export type TGameStatus = (typeof OGameStatus)[keyof typeof OGameStatus];
