@@ -5,20 +5,22 @@ import { OGameStatus, useGameStore } from "@/features/playzone/model";
 import { Button } from "@/shared/ui/button";
 import { AnimatePresence, LazyMotion, m } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 const checkWordUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const variants = {
   hidden: { opacity: 0, y: -30, x: "-50%" },
   visible: { opacity: 1, y: "-50%", x: "-50%" },
 };
+
 export default function Home() {
   const { gameStatus, error, levelColor, fetchLevelWords } = useGameStore(
-    (state) => ({
+    useShallow((state) => ({
       gameStatus: state.gameStatus,
       error: state.error,
       levelColor: state.levelColor,
       fetchLevelWords: state.fetchLevelWords,
-    }),
+    })),
   );
 
   return (
