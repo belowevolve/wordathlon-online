@@ -16,5 +16,6 @@ export const OGameStatus = {
   LOADING: "LOADING",
   ON_LVL: "ON_LVL",
   AFTER_LVL: "AFTER_LVL",
+  ERROR: "ERROR",
 } as const;
 export type TGameStatus = (typeof OGameStatus)[keyof typeof OGameStatus];

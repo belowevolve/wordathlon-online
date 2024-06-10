@@ -36,7 +36,6 @@ const CellButton = ({
     <m.button
       className={cn("cell button relative bg-opacity-80 shadow-3d", className)}
       ref={buttonRef}
-      disabled={count === 0}
       whileTap={tapVariant}
       whileHover={hoverFocusVariant}
       whileFocus={hoverFocusVariant}
