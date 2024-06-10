@@ -21,8 +21,8 @@ export const Playzone = memo(() => {
   const { focusedButton, handleKeyDown } = useKeyboardControlStore();
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
   return (
@@ -39,8 +39,7 @@ export const Playzone = memo(() => {
           const colIndex = index % 5;
           const key = `${rowIndex}-${colIndex}`;
           if (rowIndex < 4 && rowIndex > 0 && colIndex > 0 && colIndex < 4) {
-            const isFocused =
-              rowIndex === focusedButton.row && colIndex === focusedButton.col;
+            const isFocused = rowIndex === focusedButton.row && colIndex === focusedButton.col;
             const letterIndex = rowIndex + colIndex - (2 - rowIndex) * 2;
             const letter = letters[letterIndex][0];
             const count = letters[letterIndex][1];
