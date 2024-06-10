@@ -28,8 +28,8 @@ const InputPanel = () => {
             letter={inputLetter}
           />
         ) : (
-          <Cell key={`input-${index}`} className="bg-transparent shadow-3d" />
-        ),
+          <Cell key={`input-${index}`} className="shadow-3d bg-transparent" />
+        )
       )}
     </m.div>
   );
