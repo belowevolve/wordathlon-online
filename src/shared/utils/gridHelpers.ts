@@ -1,24 +1,6 @@
-import { WordDataFetched } from './types';
+import { WordDataFetched } from "@/features/playzone/model/gameStore";
 
-export const revealOrder = [
-  '0-0',
-  '0-4',
-  '4-4',
-  '4-0',
-  '0-1',
-  '1-4',
-  '4-3',
-  '3-0',
-  '0-2',
-  '2-4',
-  '4-2',
-  '2-0',
-  '0-3',
-  '3-4',
-  '4-1',
-  '1-0',
-];
-
+// Return {row, col} of letter in word
 export const getGridCoordinates = (wordIndex: number, letterIndex: number) => {
   switch (wordIndex) {
     case 0:
@@ -37,7 +19,7 @@ export const getGridCoordinates = (wordIndex: number, letterIndex: number) => {
 export const initializeGrid = (levelWords: string[]) => {
   const newGrid: Record<string, { letter: string; revealed: boolean }> = {};
   levelWords.forEach((word, wordIndex) => {
-    word.split('').forEach((letter, letterIndex) => {
+    word.split("").forEach((letter, letterIndex) => {
       const key = getGridCoordinates(wordIndex, letterIndex);
       newGrid[key] = { letter: letter.toUpperCase(), revealed: false };
     });
@@ -45,7 +27,26 @@ export const initializeGrid = (levelWords: string[]) => {
   return newGrid;
 };
 
-export function countLetters(words: string[]): { [letter: string]: number } {
+export const revealOrder = [
+  "0-0",
+  "0-4",
+  "4-4",
+  "4-0",
+  "0-1",
+  "1-4",
+  "4-3",
+  "3-0",
+  "0-2",
+  "2-4",
+  "4-2",
+  "2-0",
+  "0-3",
+  "3-4",
+  "4-1",
+  "1-0",
+];
+
+export const countLetters = (words: string[]): { [letter: string]: number } => {
   const letterCounts: { [letter: string]: number } = {};
   // Loop through each word
   for (const word of words) {
@@ -61,9 +62,13 @@ export function countLetters(words: string[]): { [letter: string]: number } {
     }
   }
   return letterCounts;
-}
+};
 
-export function selectRandomWords(data: WordDataFetched[], count: number, levelWords: string[]) {
+export function selectRandomWords(
+  data: WordDataFetched[],
+  count: number,
+  levelWords: string[],
+) {
   const words = [];
   let attempts = 0;
   while (words.length < count && data.length > 0 && attempts < 1000) {
@@ -72,8 +77,8 @@ export function selectRandomWords(data: WordDataFetched[], count: number, levelW
     if (
       /^[a-zA-Z]+$/.test(wordData.word) &&
       wordData.defs &&
-      // For difficulty level
-      wordData.score > 500 &&
+      // For difficulty levels
+      wordData.score > 300 &&
       Object.keys(countLetters([...levelWords, wordData.word])).length <= 9
     ) {
       words.push(wordData);
