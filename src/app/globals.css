@@ -74,3 +74,9 @@
       @apply bg-background text-foreground;
     }
   }
+
+  @layer components {
+    .cell{
+      @apply  grid size-24 place-items-center rounded-md bg-white text-5xl font-medium;
+    }
+  }

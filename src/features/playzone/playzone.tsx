@@ -1,13 +1,13 @@
-import { m } from 'framer-motion';
-import { memo, useEffect } from 'react';
-import { useShallow } from 'zustand/react/shallow';
-import Cell from './ui/cell';
-import CellButton from './ui/cell-button';
-import { useGameStore } from './model';
-import { useKeyboardControlStore } from './model';
-import HintButton from './ui/hint-button';
-import InputPanel from './input-panel';
-import { containerVariants } from './ui/animation-variants';
+import { m } from "framer-motion";
+import { memo, useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
+import Cell from "./ui/cell";
+import CellButton from "./ui/cell-button";
+import { useGameStore } from "./model";
+import { useKeyboardControlStore } from "./model";
+import HintButton from "./ui/hint-button";
+import InputPanel from "./input-panel";
+import { containerVariants } from "./ui/animation-variants";
 
 export const Playzone = memo(() => {
   const { grid, letters, handleLetterClick } = useGameStore(
@@ -15,7 +15,7 @@ export const Playzone = memo(() => {
       grid: state.grid,
       letters: Object.entries(state.letters).sort(),
       handleLetterClick: state.handleLetterClick,
-    }))
+    })),
   );
 
   const { focusedButton, handleKeyDown } = useKeyboardControlStore();
@@ -69,4 +69,4 @@ export const Playzone = memo(() => {
   );
 });
 
-Playzone.displayName = 'Playzone';
+Playzone.displayName = "Playzone";

@@ -12,6 +12,7 @@ const variants = {
   hidden: { opacity: 0, y: -30, x: "-50%" },
   visible: { opacity: 1, y: "-50%", x: "-50%" },
 };
+
 export default function Home() {
   const { gameStatus, error, levelColor, fetchLevelWords } = useGameStore(
     useShallow((state) => ({
