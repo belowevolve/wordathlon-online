@@ -66,7 +66,7 @@ const PlayGrid = () => {
         return (
           <Cell
             key={key}
-            className="bg-cell/50"
+            className="grid place-items-center bg-cell/50"
             revealed={cell.revealed}
             letter={cell.letter}
           />
