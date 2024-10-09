@@ -1,5 +1,11 @@
 {
-    "cSpell.words": [
-        "Playzone"
-    ]
+  "cSpell.words": ["Playzone"],
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "css": "css"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }

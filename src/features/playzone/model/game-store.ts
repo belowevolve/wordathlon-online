@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { OGameStatus, TGameStatus, WordData, WordDataFetched } from "./types";
+import {
+  OGameStatus,
+  OWordStatus,
+  TGameStatus,
+  TWordStatus,
+  WordData,
+  WordDataFetched,
+} from "./types";
 import {
   countLetters,
   getGridCoordinates,
@@ -8,20 +15,22 @@ import {
   revealOrder,
   selectRandomWords,
 } from "./utils";
+import { WORD_STATUS_DURATION } from "../ui/animation-variants";
 
 const GEN_WORD_API_URL = "https://api.datamuse.com/words?sp=";
 
 interface State {
   gameStatus: TGameStatus;
   error: string;
-  info: string;
-  allFetchedWords: WordData;
-  input: string[];
-  levelWords: string[];
-  alreadyFoundWords: string[];
-  letters: Record<string, number>;
-  levelColor: string;
   grid: Record<string, { letter: string; revealed: boolean }>;
+  levelWords: string[];
+  letters: Record<string, number>;
+  allFetchedWords: WordData;
+  alreadyFoundWords: string[];
+  input: string[];
+  lastInputIndexAdded?: number;
+  wordStatus: { message: TWordStatus; timer?: NodeJS.Timeout };
+  levelColor: string;
   revealIndex: number;
   totalLevelsFinished: number;
 }
@@ -29,7 +38,7 @@ const initialState: State = {
   gameStatus: OGameStatus.NOT_STARTED,
   input: Array(5).fill(""),
   error: "",
-  info: "Combine letters to form a word",
+  wordStatus: { message: OWordStatus.INITIAL },
   letters: {},
   grid: {},
   levelWords: [],
@@ -50,6 +59,7 @@ interface Actions {
   checkWin: () => void;
   addAlreadyFoundWord: (word: string) => void;
   deleteLastLetter: () => void;
+  setWordStatus: (wordStatus: TWordStatus) => void;
 }
 
 export const useGameStore = create<State & Actions>()(
@@ -78,7 +88,7 @@ export const useGameStore = create<State & Actions>()(
               letters: {},
               grid: {},
               revealIndex: 0,
-              info: initialState.info,
+              wordStatus: initialState.wordStatus,
               gameStatus: OGameStatus.LOADING,
               levelColor: `hsl(${360 * Math.random()}, ${25 + 70 * Math.random()}%, ${
                 65 + 20 * Math.random()
@@ -204,9 +214,10 @@ export const useGameStore = create<State & Actions>()(
               set({
                 input: newInput,
                 letters: { ...letters, [letter]: letters[letter] - 1 },
+                lastInputIndexAdded: emptyIndex,
               });
+              checkInput();
             }
-            checkInput();
           }
         },
 
@@ -237,28 +248,28 @@ export const useGameStore = create<State & Actions>()(
             revealLetter,
             handleInputClick,
             checkWin,
+            setWordStatus,
           } = get();
           const word = input.join("").toLowerCase();
           if (word.length === 5) {
             if (alreadyFoundWords.includes(word)) {
-              set({ info: "Already found" });
+              setWordStatus(OWordStatus.ALREADY_FOUND);
               console.log("Already found");
             } else if (levelWords.includes(word)) {
-              set({ info: "Word is in level words" });
+              setWordStatus(OWordStatus.FOUND);
               console.log("Word is in level words");
               addAlreadyFoundWord(word);
               revealWord(word);
               checkWin();
             } else if (allFetchedWords[word]) {
-              set({ info: "Word is in all fetched words" });
-              console.log("Word is in all fetched words");
+              setWordStatus(OWordStatus.HIDDEN);
+              console.log("Hidden word found");
               revealLetter();
               addAlreadyFoundWord(word);
               input.forEach((_, i) => handleInputClick(i));
             } else {
               // Handle an incorrect word
-              set({ info: "Word is not correct" });
-              console.log("Word is not correct");
+              setWordStatus(OWordStatus.ERROR);
             }
           }
         },
@@ -341,6 +352,18 @@ export const useGameStore = create<State & Actions>()(
             });
           }
         },
+
+        setWordStatus: (wordStatus: TWordStatus) => {
+          const { wordStatus: currentWordStatus } = get();
+          if (currentWordStatus.timer) {
+            clearTimeout(currentWordStatus.timer);
+          }
+          const timer = setTimeout(
+            () => set({ wordStatus: { message: OWordStatus.EMPTY } }),
+            WORD_STATUS_DURATION,
+          );
+          set({ wordStatus: { message: wordStatus, timer } });
+        },
       }),
       {
         name: "game-storage",
@@ -348,10 +371,13 @@ export const useGameStore = create<State & Actions>()(
           if (state.gameStatus === OGameStatus.LOADING)
             return {
               ...state,
-              info: initialState.info,
+              wordStatus: initialState.wordStatus,
               gameStatus: initialState.gameStatus,
             };
-          return state;
+          return {
+            ...state,
+            wordStatus: initialState.wordStatus,
+          };
         },
       },
     ),

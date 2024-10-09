@@ -34,11 +34,19 @@ const CellButton = ({
   }, [isFocused]);
   return (
     <m.button
-      className={cn("cell button relative bg-opacity-80 shadow-3d", className)}
+      className={cn(
+        "cell button bg-cell/80 relative shadow-3d outline-none focus-visible:border focus-visible:border-black",
+        {
+          "pointer-events-none bg-transparent": count === 0,
+        },
+        className,
+      )}
       ref={buttonRef}
       whileTap={tapVariant}
       whileHover={hoverFocusVariant}
-      whileFocus={hoverFocusVariant}
+      whileFocus={
+        count === undefined || count > 0 ? hoverFocusVariant : undefined
+      }
       variants={buttonVariants}
       onClick={() => handleClick(index !== undefined ? index : letter)}
       {...props}
@@ -46,9 +54,9 @@ const CellButton = ({
       {count !== undefined ? (
         <>
           {count > 0 && letter.toUpperCase()}
-          <p className="absolute bottom-2 right-2 text-lg leading-none">
+          <span className="absolute bottom-2 right-2 text-lg leading-none">
             {count > 0 && count}
-          </p>
+          </span>
         </>
       ) : (
         <>{letter.toUpperCase()}</>

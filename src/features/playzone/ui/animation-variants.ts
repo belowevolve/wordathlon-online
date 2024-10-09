@@ -1,3 +1,5 @@
+export const WORD_STATUS_DURATION = 3000;
+
 export const containerVariants = {
   initial: { opacity: 0 },
   animate: (i: number) => ({

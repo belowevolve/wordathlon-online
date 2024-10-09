@@ -5,7 +5,6 @@ import { OGameStatus, useGameStore } from "@/features/playzone/model";
 import { Button } from "@/shared/ui/button";
 import { AnimatePresence, LazyMotion, m } from "framer-motion";
 import { Loader2 } from "lucide-react";
-import { Play } from "next/font/google";
 import { useShallow } from "zustand/react/shallow";
 const checkWordUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
@@ -28,7 +27,7 @@ export default function Home() {
     <LazyMotion
       features={() => import("framer-motion").then((res) => res.domAnimation)}
     >
-      <main className="flex flex-col items-center">
+      <main>
         <style jsx global>
           {`
             body {
@@ -46,8 +45,8 @@ export default function Home() {
           {gameStatus === OGameStatus.NOT_STARTED && (
             <m.div
               key="modal_not_started"
-              className="absolute left-1/2 top-1/2 grid max-w-xl gap-4
-              border bg-background p-6 shadow-lg sm:rounded-lg"
+              className="absolute left-1/2 top-1/2 grid min-w-80 max-w-xl gap-4
+              rounded-lg border bg-card p-6 shadow-lg"
               initial="hidden"
               animate="visible"
               exit="hidden"
@@ -69,8 +68,8 @@ export default function Home() {
           {gameStatus === OGameStatus.AFTER_LVL && (
             <m.div
               key="modal_after_lvl"
-              className="absolute left-1/2 top-1/2 grid max-w-xl gap-4
-              border bg-background p-6 shadow-lg sm:rounded-lg"
+              className="absolute left-1/2 top-1/2 grid min-w-80 max-w-xl
+              gap-4 rounded-lg border bg-card p-6 shadow-lg"
               initial="hidden"
               animate="visible"
               exit="hidden"

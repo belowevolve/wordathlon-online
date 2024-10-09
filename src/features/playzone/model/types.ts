@@ -19,3 +19,13 @@ export const OGameStatus = {
   ERROR: "ERROR",
 } as const;
 export type TGameStatus = (typeof OGameStatus)[keyof typeof OGameStatus];
+
+export const OWordStatus = {
+  INITIAL: "Combine letters to form a word",
+  ALREADY_FOUND: "Word already found",
+  FOUND: "Congrats! Can you find another?",
+  HIDDEN: "Hidden word found",
+  ERROR: "Word is not correct",
+  EMPTY: "",
+} as const;
+export type TWordStatus = (typeof OWordStatus)[keyof typeof OWordStatus];

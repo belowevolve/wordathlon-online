@@ -7,6 +7,10 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
+    --cell: 0 0% 100%;
+    --cell-error: 359 100% 73%;
+    --cell-hsl: hsl(var(--cell) / 80%);
+    --cell-error-hsl: hsl(var(--cell-error) / 80%);
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
@@ -77,6 +81,6 @@
 
 @layer components {
   .cell {
-    @apply grid size-24 place-items-center rounded-md bg-white text-5xl font-medium;
+    @apply aspect-square rounded-md bg-cell text-4xl font-medium sm:text-5xl;
   }
 }

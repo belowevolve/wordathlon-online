@@ -38,10 +38,12 @@ export const useKeyboardControlStore = create<UiState & UiActions>()(
                 break;
               case "KeyH":
                 useGameStore.getState().revealLetter();
-                break;
+                return state;
               case "Backspace":
                 useGameStore.getState().deleteLastLetter();
-                break;
+                return state;
+              default:
+                return state;
             }
             return { focusedButton: { row, col } };
           },
