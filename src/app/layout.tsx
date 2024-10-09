@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen font-sans antialiased transition-colors",
+          "min-h-screen font-sans antialiased",
           fontSans.variable,
           fontAnnie.variable,
         )}

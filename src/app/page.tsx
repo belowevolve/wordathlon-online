@@ -27,7 +27,7 @@ export default function Home() {
     <LazyMotion
       features={() => import("framer-motion").then((res) => res.domAnimation)}
     >
-      <main className="flex flex-col items-center">
+      <main>
         <style jsx global>
           {`
             body {
@@ -41,11 +41,12 @@ export default function Home() {
         )}
         {(gameStatus === OGameStatus.ON_LVL ||
           gameStatus === OGameStatus.AFTER_LVL) && <Playzone />}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {gameStatus === OGameStatus.NOT_STARTED && (
             <m.div
-              className="absolute left-1/2 top-1/2 grid max-w-xl gap-4
-              border bg-background p-6 shadow-lg sm:rounded-lg"
+              key="modal_not_started"
+              className="absolute left-1/2 top-1/2 grid min-w-80 max-w-xl gap-4
+              rounded-lg border bg-card p-6 shadow-lg"
               initial="hidden"
               animate="visible"
               exit="hidden"
@@ -66,8 +67,9 @@ export default function Home() {
           )}
           {gameStatus === OGameStatus.AFTER_LVL && (
             <m.div
-              className="absolute left-1/2 top-1/2 grid max-w-xl gap-4
-              border bg-background p-6 shadow-lg sm:rounded-lg"
+              key="modal_after_lvl"
+              className="absolute left-1/2 top-1/2 grid min-w-80 max-w-xl
+              gap-4 rounded-lg border bg-card p-6 shadow-lg"
               initial="hidden"
               animate="visible"
               exit="hidden"
